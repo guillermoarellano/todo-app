@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { TodoListService } from '@app/core/todo-list.service';
+import { TODOItem } from '@app/shared/models/todoitem';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -7,10 +10,37 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent implements OnInit {
+  // public todoList$ = this.todoListService.todoList$;
+  // public selectedTodoForEdit$ = this.todoListService.getTodoForEdit$();
+  // public isLoading$ = this.todoListService.isLoading$;
 
-  constructor() { }
+  constructor(private todoListService: TodoListService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {}
+
+  public deleteTodo(id: string) {
+    this.todoListService.deleteTodo(id);
   }
 
+  public setTodoForEdit(todoItem: TODOItem) {
+    this.todoListService.setTodoItemForEdit(todoItem);
+  }
+
+  /**
+   * todoItemEdit
+   */
+  public todoItemEdit(todoItem: TODOItem) {
+    this.todoListService.editTodo(todoItem);
+  }
+
+  /**
+   * todoItemCreate
+   */
+  public todoItemCreate(todoItem: TODOItem) {
+    this.todoListService.addTodo(todoItem);
+  }
+
+  public trackByFn(index, item) {
+    return item.id;
+  }
 }
