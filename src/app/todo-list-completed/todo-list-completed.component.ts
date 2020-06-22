@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { TodoListService } from '@app/core/todo-list.service';
 
 @Component({
   selector: 'app-todo-list-completed',
@@ -6,11 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./todo-list-completed.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoListCompletedComponent implements OnInit {
+export class TodoListCompletedComponent {
+  public completedTodoList$ = this.todoListService.completedTodoList$;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  constructor(private todoListService: TodoListService) {}
 }
