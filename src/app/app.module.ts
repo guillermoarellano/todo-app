@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     TodoListModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
