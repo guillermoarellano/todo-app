@@ -123,6 +123,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "appmod-task"
+    }
+  },
+  "defaultProject": "appmod-task",
+  "schematics": {
+    "@schematics/angular:component": {
+      "displayBlock": true
+    }
+  }
 }
