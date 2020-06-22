@@ -128,7 +128,8 @@
   "defaultProject": "appmod-task",
   "schematics": {
     "@schematics/angular:component": {
-      "displayBlock": true
+      "displayBlock": true,
+      "changeDetection": "OnPush"
     }
   }
 }
