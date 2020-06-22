@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { TodoListCompletedComponent } from './todo-list-completed.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -12,10 +13,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes)
-  ]
+  ],
+  declarations: [TodoListCompletedComponent],
 })
 export class TodoListCompletedModule { }
