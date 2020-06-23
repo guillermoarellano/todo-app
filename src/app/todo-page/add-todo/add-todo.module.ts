@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { AddTodoComponent } from './add-todo.component';
+import { AddTodoPresentationComponent } from './add-todo-presentation/add-todo-presentation.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { AddTodoComponent } from './add-todo.component';
     CommonModule,
     SharedModule
   ],
-  declarations: [AddTodoComponent],
+  declarations: [AddTodoComponent, AddTodoPresentationComponent],
   exports: [AddTodoComponent]
 })
 export class AddTodoModule { }
