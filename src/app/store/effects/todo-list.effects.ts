@@ -13,6 +13,8 @@ import {
   TodoItemUpdatedFailed,
   CreateTodoItem,
   UpdateTodoItem,
+  DeleteTodoItem,
+  TodoItemDeletedFailed,
 } from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
 
@@ -30,7 +32,7 @@ export class TodoListEffects {
   @Effect()
   public createTodo$ = this.actions$.pipe(
     ofType(TodoListActionTypes.CreateTodoItem),
-    exhaustMap((payload: CreateTodoItem) => this.todoListAPIService.createTodo(payload)),
+    exhaustMap((action: CreateTodoItem) => this.todoListAPIService.createTodo(action)),
     map(() => new LoadTodoList()),
     catchError((error: Error) => of(new TodoItemCreatedFailed(error)))
   );
@@ -38,9 +40,17 @@ export class TodoListEffects {
   @Effect()
   public updateTodo$ = this.actions$.pipe(
     ofType(TodoListActionTypes.UpdateTodoItem),
-    exhaustMap((payload: UpdateTodoItem) => this.todoListAPIService.editTodo(payload)),
+    exhaustMap((action: UpdateTodoItem) => this.todoListAPIService.editTodo(action)),
     map(() => new LoadTodoList()),
     catchError((error: Error) => of(new TodoItemUpdatedFailed(error)))
+  );
+
+  @Effect()
+  public deleteTodo$ = this.actions$.pipe(
+    ofType(TodoListActionTypes.DeleteTodoItem),
+    exhaustMap((action: DeleteTodoItem) => this.todoListAPIService.deleteTodo(action)),
+    map(() => new LoadTodoList()),
+    catchError((error: Error) => of(new TodoItemDeletedFailed(error)))
   );
   constructor(private actions$: Actions, private todoListAPIService: TodoListAPIService) {}
 }

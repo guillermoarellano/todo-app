@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { CreateTodoItem, UpdateTodoItem } from '@app/store';
+import { CreateTodoItem, UpdateTodoItem, DeleteTodoItem } from '@app/store';
 
 @Injectable()
 export class TodoListAPIService {
@@ -17,8 +17,8 @@ export class TodoListAPIService {
     return this.httpClient.post<any>(this.todoListUrl, todo.payload);
   }
 
-  public deleteTodo(id: number) {
-    return this.httpClient.delete(`${this.todoListUrl}/${id}`);
+  public deleteTodo(action: DeleteTodoItem) {
+    return this.httpClient.delete(`${this.todoListUrl}/${action.payload}`);
   }
 
   public editTodo(todo: UpdateTodoItem) {
