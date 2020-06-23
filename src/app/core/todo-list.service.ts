@@ -25,7 +25,7 @@ export class TodoListService {
   }
 
   public editTodo(todoItem: TODOItem): any {
-    this.todoListActions.todoItemUpdated(todoItem);
+    this.todoListActions.updateTodoItem(todoItem);
   }
 
   public getTodoForEdit$() {
