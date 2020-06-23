@@ -14,10 +14,6 @@ export class TodoItemCardComponent {
   @Output() public todoDelete = new EventEmitter<string>();
   @Output() public todoEdit = new EventEmitter<TODOItem>();
 
-  public completeClick() {
-    this.todoItem.completed = !this.todoItem.completed;
-  }
-
   public deleteClick() {
     this.todoDelete.emit(this.todoItem.id);
   }
