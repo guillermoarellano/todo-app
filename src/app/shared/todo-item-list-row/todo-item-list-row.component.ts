@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { TODOItem } from '../models/todoitem';
+import { TODOItem } from '../models/interfaces';
 
 @Component({
   selector: 'app-todo-item-list-row',

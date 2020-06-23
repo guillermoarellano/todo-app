@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
-
-interface APIInterface {
-  title: string;
-  text: string;
-}
 
 export enum TodoListActionTypes {
   LoadTodoList = '[TodoList] Load Todo List',

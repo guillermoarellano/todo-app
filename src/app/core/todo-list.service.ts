@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem } from '@app/shared/models/interfaces';
 import { TodoListActions } from '@app/store/actions';
 import { TodoListSelector } from '@app/store/services';
 

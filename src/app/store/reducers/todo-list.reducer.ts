@@ -1,7 +1,6 @@
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem } from '@app/shared/models/interfaces';
 import { TodoListActionTypes } from '../actions/todo-list.actions';
 import { GenericAction } from '../actions/generic-action';
-
 
 export interface TodoListState {
   todos: TODOItem[];

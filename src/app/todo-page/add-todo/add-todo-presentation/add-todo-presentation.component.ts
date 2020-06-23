@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem } from '@app/shared/models/interfaces';
 
 @Component({
   selector: 'app-add-todo-presentation',

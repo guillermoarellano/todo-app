@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -12,8 +12,9 @@ export class TodoListAPIService {
     return this.httpClient.get<TODOItem[]>(this.todoListUrl);
   }
 
-  public postTodo(todo: TODOItem) {
-    return this.httpClient.post<TODOItem>(this.todoListUrl, todo);
+  public createTodo(todo: APIInterface) {
+    console.log('The payload provided is this::', todo);
+    return this.httpClient.post<APIInterface>(this.todoListUrl, todo);
   }
 
   public deleteTodo(id: number) {

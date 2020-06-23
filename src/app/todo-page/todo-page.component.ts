@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TodoListService } from '@app/core/todo-list.service';
-import { TODOItem } from '@app/shared/models/todoitem';
-import { of } from 'rxjs';
-import { TodoListActions } from '@app/store/actions';
+import { TODOItem } from '@app/shared/models/interfaces';
 
 @Component({
   selector: 'app-todo-page',
