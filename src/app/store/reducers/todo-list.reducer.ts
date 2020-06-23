@@ -58,7 +58,6 @@ const todoItemCreatedReducer = (
 ): TodoListState => {
   const prevTodos = lastState.todos;
 
-  // action.payload.id = Guid.newGuid();
   prevTodos.push(action.payload);
   const newTodos = prevTodos;
   return {
