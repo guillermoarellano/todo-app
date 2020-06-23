@@ -12,7 +12,7 @@ import { AddTodoPresentationComponent } from './add-todo-presentation/add-todo-p
     CommonModule,
     SharedModule
   ],
-  declarations: [AddTodoComponent, AddTodoPresentationComponent],
+  declarations: [AddTodoComponent, AddTodoPresentationComponent ],
   exports: [AddTodoComponent]
 })
 export class AddTodoModule { }

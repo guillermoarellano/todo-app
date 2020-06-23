@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared/shared.module';
 import { TodoPageComponent } from './todo-page.component';
-import { AddTodoComponent } from './add-todo/add-todo.component';
+import { AddTodoModule } from './add-todo/add-todo.module';
 
 
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    AddTodoModule
   ],
-  declarations: [TodoPageComponent, AddTodoComponent],
+  declarations: [TodoPageComponent],
 })
 export class TodoPageModule { }

@@ -8,6 +8,7 @@ import { AddTodoService } from './service/add-todo.service';
   selector: 'app-add-todo',
   templateUrl: './add-todo.component.html',
   styleUrls: ['./add-todo.component.scss'],
+  viewProviders: [AddTodoService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTodoComponent{
