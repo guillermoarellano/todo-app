@@ -1,5 +1,5 @@
 <div class="mx-auto col-10">
-  <h5>Add TODO</h5>
+  <h5>Note Details</h5>
   <hr>
 
   <div *ngIf="form.submitted && form.invalid" class="alert alert-danger" role="alert">
@@ -16,7 +16,7 @@
       <input type="text" required name="todo-text" [(ngModel)]="currentTODO.text" class="form-control" id="todo-text"
         placeholder="Enter text">
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
     <div *ngIf="isLoading" class="relative">
       <!-- TODO add a Spinner-->
       LOADING...
