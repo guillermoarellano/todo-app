@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoPageComponent } from './todo-page/todo-page.component';
 
 export const rootPath = '';
 export const completedTodoPath = 'completed-todos';
@@ -9,7 +9,7 @@ export const completedTodoPath = 'completed-todos';
 const routes: Routes = [
   {
     path: rootPath,
-    component: TodoListComponent,
+    component: TodoPageComponent,
     pathMatch: 'full'
   },
   {

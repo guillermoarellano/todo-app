@@ -4,12 +4,12 @@ import { TODOItem } from '@app/shared/models/todoitem';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
+  selector: 'app-todo-page',
+  templateUrl: './todo-page.component.html',
+  styleUrls: ['./todo-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoListComponent implements OnInit {
+export class TodoPageComponent implements OnInit {
   // public todoList$ = this.todoListService.todoList$;
   public todoList$ = of([
     {

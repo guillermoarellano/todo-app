@@ -11,4 +11,4 @@ import { SharedModule } from '@app/shared/shared.module';
   ],
   declarations: [],
 })
-export class TodoListModule { }
+export class TodoPageModule { }
