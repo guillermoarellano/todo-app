@@ -1,0 +1,17 @@
+<div class="card" [ngClass]="this.todoItem.completed ? 'bg-completed' :  ''">
+  <div class="card-body">
+    <h5 class="card-title">{{todoItem.title}}</h5>
+    <p class="card-text">{{todoItem.text}}</p>
+  <div class="card-actions">
+    <button (click)="completeClick()" type="button" class="btn btn-success" aria-label="Edit">
+      Complete
+    </button>
+    <button *ngIf="!readOnlyTODO" (click)="editClick()" type="button" class="btn btn-info" aria-label="Edit">
+      Edit
+    </button>
+    <button *ngIf="!readOnlyTODO" (click)="deleteClick()" type="button" class="btn btn-danger" aria-label="Delete">
+      Delete
+    </button>
+  </div>
+</div>
+</div>
