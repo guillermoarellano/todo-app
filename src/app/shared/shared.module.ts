@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TodoItemListRowComponent } from './todo-item-list-row/todo-item-list-row.component';
+import { TodoItemCardComponent } from './todo-item-card/todo-item-card.component';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
-  declarations: [TodoItemListRowComponent],
-  exports: [TodoItemListRowComponent],
+  declarations: [TodoItemListRowComponent, TodoItemCardComponent],
+  exports: [TodoItemListRowComponent, TodoItemCardComponent],
 })
 export class SharedModule {}
