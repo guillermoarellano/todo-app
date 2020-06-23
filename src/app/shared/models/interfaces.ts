@@ -6,3 +6,8 @@ export interface TODOItem {
   text: string;
   completed?: boolean;
 }
+
+export interface APIInterface {
+  title: string;
+  text: string;
+}

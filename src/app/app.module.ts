@@ -8,6 +8,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { TodoPageModule } from './todo-page/todo-page.module';
+import { TodoListStoreModule } from './store/app-store.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,11 @@ import { TodoPageModule } from './todo-page/todo-page.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     TodoPageModule,
-    CoreModule
+    CoreModule,
+    TodoListStoreModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [],
   bootstrap: [AppComponent]

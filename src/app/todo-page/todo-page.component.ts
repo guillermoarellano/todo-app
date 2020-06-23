@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TodoListService } from '@app/core/todo-list.service';
-import { TODOItem } from '@app/shared/models/todoitem';
-import { of } from 'rxjs';
+import { TODOItem } from '@app/shared/models/interfaces';
 
 @Component({
   selector: 'app-todo-page',
@@ -10,24 +9,15 @@ import { of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoPageComponent implements OnInit {
-  // public todoList$ = this.todoListService.todoList$;
-  public todoList$ = of([
-    {
-      id: 0,
-      createdAt: '2020-06-22T20:30:44.634Z',
-      modifiedAt: '2020-06-22T20:30:44.634Z',
-      title: 'Example TODO item',
-      text: 'This example item is created automatically on startup.',
-    },
-  ]);
-  // public selectedTodoForEdit$ = this.todoListService.getTodoForEdit$();
-  public selectedTodoForEdit$ = of({});
-  // public isLoading$ = this.todoListService.isLoading$;
-  public isLoading$ = of(false);
+  public todoList$ = this.todoListService.todoList$;
+  public selectedTodoForEdit$ = this.todoListService.getTodoForEdit$();
+  public isLoading$ = this.todoListService.isLoading$;
 
   constructor(private todoListService: TodoListService) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.todoListService.loadTodoList();
+  }
 
   public deleteTodo(id: string) {
     this.todoListService.deleteTodo(id);

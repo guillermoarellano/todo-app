@@ -1,46 +1,42 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem } from '@app/shared/models/interfaces';
+import { TodoListActions } from '@app/store/actions';
+import { TodoListSelector } from '@app/store/services';
 
 @Injectable()
 export class TodoListService {
-  private todoListUrl = '//localhost:8080/todos';
+  public isLoading$ = this.todoListSelector.getIsLoading$();
 
-  // public isLoading$ = this.todoListSelector.getIsLoading$();
-
-  // public todoList$ = this.todoListSelector.getTodoList$();
-  // public completedTodoList$ = this.todoListSelector.getCompletedTodoList$();
+  public todoList$ = this.todoListSelector.getTodoList$();
+  public completedTodoList$ = this.todoListSelector.getCompletedTodoList$();
 
   constructor(
-    private httpClient: HttpClient
+    private todoListSelector: TodoListSelector,
+    private todoListActions: TodoListActions
   ) {}
 
-  public getTodos() {
-    return this.httpClient.get<TODOItem[]>(this.todoListUrl);
-  }
-
   public loadTodoList(): any {
-    // this.todoListActions.loadTodoList();
+    this.todoListActions.loadTodoList();
   }
 
   public setTodoItemForEdit(todoItem: TODOItem): any {
-    // this.todoListActions.setTodoItemForEdit(todoItem);
+    this.todoListActions.setTodoItemForEdit(todoItem);
   }
 
   public editTodo(todoItem: TODOItem): any {
-    // this.todoListActions.todoItemUpdated(todoItem);
+    this.todoListActions.updateTodoItem(todoItem);
   }
 
   public getTodoForEdit$() {
-    // return this.todoListSelector.getTodoItemForEdit$();
+    return this.todoListSelector.getTodoItemForEdit$();
   }
 
   public addTodo(todo: TODOItem) {
-    // this.todoListActions.addTodo(todo);
+    this.todoListActions.addTodo(todo);
   }
 
   public deleteTodo(id: string) {
-    // this.todoListActions.deleteTodo(id);
+    this.todoListActions.deleteTodo(id);
   }
 }

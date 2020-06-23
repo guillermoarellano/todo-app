@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Output, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { TODOItem } from '@app/shared/models/todoitem';
+import { TODOItem } from '@app/shared/models/interfaces';
 import { AddTodoService } from './service/add-todo.service';
 
 @Component({
