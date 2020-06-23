@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TodoListService } from './todo-list.service';
+import { TodoListAPIService } from './todo-list-api.service';
 
 @NgModule({
   declarations: [],
   imports: [HttpClientModule, CommonModule],
-  providers: [TodoListService],
+  providers: [TodoListService, TodoListAPIService],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
