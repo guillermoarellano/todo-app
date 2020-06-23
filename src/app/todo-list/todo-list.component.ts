@@ -1,18 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TodoListService } from '@app/core/todo-list.service';
 import { TODOItem } from '@app/shared/models/todoitem';
-
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit {
   // public todoList$ = this.todoListService.todoList$;
+  public todoList$ = of([
+    {
+      id: 0,
+      createdAt: '2020-06-22T20:30:44.634Z',
+      modifiedAt: '2020-06-22T20:30:44.634Z',
+      title: 'Example TODO item',
+      text: 'This example item is created automatically on startup.',
+    },
+  ]);
   // public selectedTodoForEdit$ = this.todoListService.getTodoForEdit$();
+  public selectedTodoForEdit$ = of({});
   // public isLoading$ = this.todoListService.isLoading$;
+  public isLoading$ = of(false);
 
   constructor(private todoListService: TodoListService) {}
 
