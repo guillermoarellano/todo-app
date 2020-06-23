@@ -4,9 +4,18 @@ import { of } from 'rxjs';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 
 
-import { TodoItemsLoaded, TodoItemsLoadFailed, TodoListActionTypes, TodoItemCreated, TodoItemCreatedFailed } from '../actions';
+import {
+  TodoItemsLoaded,
+  TodoItemsLoadFailed,
+  TodoListActionTypes,
+  TodoItemCreatedFailed,
+  LoadTodoList,
+  TodoItemUpdatedFailed,
+  CreateTodoItem,
+  UpdateTodoItem,
+} from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
-import { APIInterface } from '@app/shared/models/interfaces';
+
 
 @Injectable()
 export class TodoListEffects {
@@ -19,11 +28,19 @@ export class TodoListEffects {
   );
 
   @Effect()
-  public TodoList$ = this.actions$.pipe(
+  public createTodo$ = this.actions$.pipe(
     ofType(TodoListActionTypes.CreateTodoItem),
-    exhaustMap((payload: APIInterface) => this.todoListAPIService.createTodo(payload)),
-    map((todoList) => new TodoItemCreated(todoList)),
+    exhaustMap((payload: CreateTodoItem) => this.todoListAPIService.createTodo(payload)),
+    map(() => new LoadTodoList()),
     catchError((error: Error) => of(new TodoItemCreatedFailed(error)))
+  );
+
+  @Effect()
+  public updateTodo$ = this.actions$.pipe(
+    ofType(TodoListActionTypes.UpdateTodoItem),
+    exhaustMap((payload: UpdateTodoItem) => this.todoListAPIService.editTodo(payload)),
+    map(() => new LoadTodoList()),
+    catchError((error: Error) => of(new TodoItemUpdatedFailed(error)))
   );
   constructor(private actions$: Actions, private todoListAPIService: TodoListAPIService) {}
 }

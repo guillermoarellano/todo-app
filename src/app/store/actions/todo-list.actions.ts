@@ -79,7 +79,7 @@ export class TodoItemDeletedFailed implements Action {
 export class UpdateTodoItem implements Action {
   public readonly type = TodoListActionTypes.UpdateTodoItem;
 
-  constructor(public payload: APIInterface) {}
+  constructor(public payload: TODOItem) {}
 }
 
 export class TodoItemUpdated implements Action {
@@ -119,7 +119,7 @@ export class TodoListActions {
   }
 
   public updateTodoItem(todo: TODOItem): any {
-    this.store.dispatch(new UpdateTodoItem({title: todo.title, text: todo.text}));
+    this.store.dispatch(new UpdateTodoItem(todo));
   }
 
   public setTodoItemForEdit(todo: TODOItem): any {

@@ -36,7 +36,8 @@ const todoItemsLoaded = (
   return {
     ...lastState,
     todos: action.payload,
-    isLoading: false
+    isLoading: false,
+    editTodoItemIdx: null
   };
 };
 
