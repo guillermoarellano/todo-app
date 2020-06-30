@@ -27,7 +27,7 @@ const todos = {
 const app = express();
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); 
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   res.header("Access-Control-Allow-Methods", "*");
   next();
@@ -113,4 +113,6 @@ app.delete('/todos/:id', (req, res) => {
   return res.status(204).send();
 });
 
-app.listen(8080, 'localhost');
+app.listen(8080, 'localhost', function(){
+  console.log("Express server listening on port 8080. ")
+});
