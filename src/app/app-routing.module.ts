@@ -3,11 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TodoPageComponent } from './todo-page/todo-page.component';
 
-export const rootPath = '';
-
 const routes: Routes = [
   {
-    path: rootPath,
+    path: '',
     component: TodoPageComponent,
     pathMatch: 'full'
   },
