@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AddTodoPresentationComponent } from './add-todo-presentation.component';
 import { FormsModule } from '@angular/forms';
@@ -8,18 +9,16 @@ describe('AddTodoPresentationComponent', () => {
   let component: AddTodoPresentationComponent;
   let fixture: ComponentFixture<AddTodoPresentationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [ AddTodoPresentationComponent ]
-    })
-    .compileComponents();
-  }));
+      declarations: [AddTodoPresentationComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AddTodoPresentationComponent);
     component = fixture.componentInstance;
-    component.currentTODO = {title: 'Random', text: 'Some note'} as TODOItem;
+    component.currentTODO = { title: 'Random', text: 'Some note' } as TODOItem;
     fixture.detectChanges();
   });
 

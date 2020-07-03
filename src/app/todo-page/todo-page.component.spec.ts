@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { TodoPageComponent } from './todo-page.component';
 import { TodoListService } from '@app/core/todo-list.service';
@@ -9,16 +10,15 @@ describe('TodoPageComponent', () => {
   let component: TodoPageComponent;
   let fixture: ComponentFixture<TodoPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       declarations: [ TodoPageComponent ],
-      providers: [TodoListService, TodoListSelector]
+      providers: [TodoListService, TodoListSelector],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TodoPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
