@@ -4,130 +4,146 @@ import { Action, Store } from '@ngrx/store';
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
-export enum TodoListActionTypes {
-  LoadTodoList = '[TodoList] Load Todo List',
-  TodoItemsLoaded = '[TodoList] load Todo items success',
-  TodoItemsLoadFailed = '[TodoList] load Todo items failure',
-  CreateTodoItem = '[TodoList] create Todo item',
-  TodoItemCreated = '[TodoList] create Todo item success',
-  TodoItemCreatedFailed = '[TodoList] create Todo item failure',
-  DeleteTodoItem = '[TodoList] delete Todo item',
-  TodoItemDeleted = '[TodoList] delete Todo item success',
-  TodoItemDeletedFailed = '[TodoList] delete Todo item failure',
-  UpdateTodoItem = '[TodoList] update Todo item',
-  TodoItemUpdated = '[TodoList] update Todo item success',
-  TodoItemUpdatedFailed = '[TodoList] update Todo item failure',
+export enum TodoActionTypes {
+  LoadTodos = '[TodoList] load todos',
+  LoadTodosError = '[TodoList] load todos error',
+  LoadTodosSuccess = '[TodoList] load todos success',
+  CreateTodo = '[TodoList] create Todo item',
+  CreateTodoError = '[TodoList] create Todo item error',
+  CreateTodoSuccess = '[TodoList] create Todo item success',
+  DeleteTodo = '[TodoList] delete Todo item',
+  DeleteTodoError = '[TodoList] delete Todo item error',
+  DeleteTodoSuccess = '[TodoList] delete Todo item success',
+  UpdateTodo = '[TodoList] update Todo item',
+  UpdateTodoError = '[TodoList] update Todo item error',
+  UpdateTodoSuccess = '[TodoList] update Todo item success',
   SetTodoItemForEdit = '[TodoList] SetTodoItemForEdit',
   TodoItemCompleted = '[TodoList] TodoItemCompleted',
 }
 
-export class LoadTodoList implements Action {
-  public readonly type = TodoListActionTypes.LoadTodoList;
+// Action Creators
 
-  constructor() {}
+export class LoadTodos implements Action {
+  public readonly type = TodoActionTypes.LoadTodos;
 }
 
-export class TodoItemsLoaded implements Action {
-  public readonly type = TodoListActionTypes.TodoItemsLoaded;
+export class LoadTodosSuccess implements Action {
+  public readonly type = TodoActionTypes.LoadTodosSuccess;
 
   constructor(public payload: TODOItem[]) {}
 }
 
-export class TodoItemsLoadFailed implements Action {
-  public readonly type = TodoListActionTypes.TodoItemsLoadFailed;
+export class LoadTodosError implements Action {
+  public readonly type = TodoActionTypes.LoadTodosError;
 
   constructor(public payload: Error) {}
 }
 
-
-export class CreateTodoItem implements Action {
-  public readonly type = TodoListActionTypes.CreateTodoItem;
-
-  constructor(public payload: APIInterface) {}
-}
-
-export class TodoItemCreated implements Action {
-  public readonly type = TodoListActionTypes.TodoItemCreated;
+export class CreateTodo implements Action {
+  public readonly type = TodoActionTypes.CreateTodo;
 
   constructor(public payload: APIInterface) {}
 }
 
-export class TodoItemCreatedFailed implements Action {
-  public readonly type = TodoListActionTypes.TodoItemCreatedFailed;
+export class CreateTodoSuccess implements Action {
+  public readonly type = TodoActionTypes.CreateTodoSuccess;
+
+  constructor(public payload: APIInterface) {}
+}
+
+export class CreateTodoError implements Action {
+  public readonly type = TodoActionTypes.CreateTodoError;
 
   constructor(public payload: Error) {}
 }
 
-export class DeleteTodoItem implements Action {
-  public readonly type = TodoListActionTypes.DeleteTodoItem;
+export class DeleteTodo implements Action {
+  public readonly type = TodoActionTypes.DeleteTodo;
 
   constructor(public payload: string) {}
 }
 
-export class TodoItemDeleted implements Action {
-  public readonly type = TodoListActionTypes.TodoItemDeleted;
+export class DeleteTodoSuccess implements Action {
+  public readonly type = TodoActionTypes.DeleteTodoSuccess;
 
   constructor(public payload: APIInterface) {}
 }
 
-export class TodoItemDeletedFailed implements Action {
-  public readonly type = TodoListActionTypes.TodoItemDeletedFailed;
+export class DeleteTodoError implements Action {
+  public readonly type = TodoActionTypes.DeleteTodoError;
 
   constructor(public payload: Error) {}
 }
 
-export class UpdateTodoItem implements Action {
-  public readonly type = TodoListActionTypes.UpdateTodoItem;
+export class UpdateTodo implements Action {
+  public readonly type = TodoActionTypes.UpdateTodo;
 
   constructor(public payload: TODOItem) {}
 }
 
-export class TodoItemUpdated implements Action {
-  public readonly type = TodoListActionTypes.TodoItemUpdated;
+export class UpdateTodoSuccess implements Action {
+  public readonly type = TodoActionTypes.UpdateTodoSuccess;
 
   constructor(public payload: string) {}
 }
 
-export class TodoItemUpdatedFailed implements Action {
-  public readonly type = TodoListActionTypes.TodoItemUpdatedFailed;
+export class UpdateTodoError implements Action {
+  public readonly type = TodoActionTypes.UpdateTodoError;
 
   constructor(public payload: Error) {}
 }
 
-export class SetTodoItemForEditAction implements Action {
-  public readonly type = TodoListActionTypes.SetTodoItemForEdit;
+export class SetTodoItemForEdit implements Action {
+  public readonly type = TodoActionTypes.SetTodoItemForEdit;
 
   constructor(public payload: TODOItem) {}
 }
 
 export class TodoItemCompleted implements Action {
-  public readonly type = TodoListActionTypes.TodoItemCompleted;
+  public readonly type = TodoActionTypes.TodoItemCompleted;
 
   constructor(public payload: string) {}
 }
+
+// Union the valid types
+export type TodoActions =
+  | LoadTodos
+  | LoadTodosError
+  | LoadTodosSuccess
+  | CreateTodo
+  | CreateTodoError
+  | CreateTodoSuccess
+  | UpdateTodo
+  | UpdateTodoError
+  | UpdateTodoSuccess
+  | DeleteTodo
+  | DeleteTodoError
+  | DeleteTodoSuccess
+  | SetTodoItemForEdit
+  | TodoItemCompleted;
 
 @Injectable({ providedIn: 'root' })
 export class TodoListActions {
   constructor(private store: Store<TodoListState>) {}
 
   public loadTodoList(): void {
-    this.store.dispatch(new LoadTodoList());
+    this.store.dispatch(new LoadTodos());
   }
 
   public addTodo(todo: TODOItem): any {
-    this.store.dispatch(new CreateTodoItem({title: todo.title, text: todo.text}));
+    this.store.dispatch(new CreateTodo({ title: todo.title, text: todo.text }));
   }
 
   public updateTodoItem(todo: TODOItem): any {
-    this.store.dispatch(new UpdateTodoItem(todo));
+    this.store.dispatch(new UpdateTodo(todo));
   }
 
   public setTodoItemForEdit(todo: TODOItem): any {
-    this.store.dispatch(new SetTodoItemForEditAction(todo));
+    this.store.dispatch(new SetTodoItemForEdit(todo));
   }
 
   public deleteTodo(id: string) {
-    this.store.dispatch(new DeleteTodoItem(id));
+    this.store.dispatch(new DeleteTodo(id));
   }
 
   public todoItemCompleted(id: string) {

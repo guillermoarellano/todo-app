@@ -1,5 +1,5 @@
 import { TODOItem } from '@app/shared/models/interfaces';
-import { TodoListActionTypes } from '../actions/todo-list.actions';
+import { TodoActionTypes } from '../actions/todo-list.actions';
 import { GenericAction } from '../actions/generic-action';
 
 export interface TodoListState {
@@ -21,7 +21,7 @@ export class TodoListInitState implements TodoListState {
 
 const loadTodoItems = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, void>
+  action: GenericAction<TodoActionTypes, void>
 ): TodoListState => {
   return {
     ...lastState,
@@ -31,7 +31,7 @@ const loadTodoItems = (
 
 const todoItemsLoaded = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, TODOItem[]>
+  action: GenericAction<TodoActionTypes, TODOItem[]>
 ): TodoListState => {
   return {
     ...lastState,
@@ -43,7 +43,7 @@ const todoItemsLoaded = (
 
 const todoItemsLoadFailed = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, Error>
+  action: GenericAction<TodoActionTypes, Error>
 ): TodoListState => {
   return {
     ...lastState,
@@ -54,7 +54,7 @@ const todoItemsLoadFailed = (
 
 const todoItemCreatedReducer = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, TODOItem>
+  action: GenericAction<TodoActionTypes, TODOItem>
 ): TodoListState => {
   const prevTodos = lastState.todos;
 
@@ -68,7 +68,7 @@ const todoItemCreatedReducer = (
 
 const selectTodoItemForEditReducer = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, TODOItem>
+  action: GenericAction<TodoActionTypes, TODOItem>
 ): TodoListState => {
   const indexToUpdate = lastState.todos.findIndex((todo) => todo.id === action.payload.id);
   return {
@@ -79,7 +79,7 @@ const selectTodoItemForEditReducer = (
 
 const todoItemUpdatedReducer = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, TODOItem>
+  action: GenericAction<TodoActionTypes, TODOItem>
 ): TodoListState => {
   const newTodolist = lastState.todos.map((todo) =>
     todo.id === action.payload.id ? action.payload : todo
@@ -94,7 +94,7 @@ const todoItemUpdatedReducer = (
 
 const todoItemDeletedReducer = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, string>
+  action: GenericAction<TodoActionTypes, string>
 ): TodoListState => {
   const newState = lastState.todos.filter((todo) => todo.id !== action.payload);
 
@@ -107,7 +107,7 @@ const todoItemDeletedReducer = (
 
 const todoItemCompletedReducer = (
   lastState: TodoListState,
-  action: GenericAction<TodoListActionTypes, string>
+  action: GenericAction<TodoActionTypes, string>
 ) => {
   lastState.todos.find((todo) => todo.id === action.payload).completed = true;
 
@@ -116,26 +116,26 @@ const todoItemCompletedReducer = (
 
 export function todoListReducers(
   lastState: TodoListState = new TodoListInitState(),
-  action: GenericAction<TodoListActionTypes, any>
+  action: GenericAction<TodoActionTypes, any>
 ): TodoListState {
   switch (action.type) {
-    case TodoListActionTypes.LoadTodoList:
+    case TodoActionTypes.LoadTodos:
       return loadTodoItems(lastState, action);
-    case TodoListActionTypes.TodoItemsLoaded:
+    case TodoActionTypes.LoadTodosError:
       return todoItemsLoaded(lastState, action);
-    case TodoListActionTypes.TodoItemsLoadFailed:
+    case TodoActionTypes.LoadTodosSuccess:
       return todoItemsLoadFailed(lastState, action);
-    case TodoListActionTypes.TodoItemCreated:
+    case TodoActionTypes.CreateTodoSuccess:
       return todoItemCreatedReducer(lastState, action);
-    case TodoListActionTypes.TodoItemsLoadFailed:
+    case TodoActionTypes.LoadTodosSuccess:
       return todoItemsLoadFailed(lastState, action);
-    case TodoListActionTypes.SetTodoItemForEdit:
+    case TodoActionTypes.SetTodoItemForEdit:
       return selectTodoItemForEditReducer(lastState, action);
-    case TodoListActionTypes.TodoItemDeleted:
+    case TodoActionTypes.DeleteTodoSuccess:
       return todoItemDeletedReducer(lastState, action);
-    case TodoListActionTypes.TodoItemUpdated:
+    case TodoActionTypes.UpdateTodoSuccess:
       return todoItemUpdatedReducer(lastState, action);
-    case TodoListActionTypes.TodoItemCompleted:
+    case TodoActionTypes.TodoItemCompleted:
       return todoItemCompletedReducer(lastState, action);
 
     default:
