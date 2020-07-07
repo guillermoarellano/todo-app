@@ -121,14 +121,12 @@ export function todoListReducers(
   switch (action.type) {
     case TodoActionTypes.LoadTodos:
       return loadTodoItems(lastState, action);
-    case TodoActionTypes.LoadTodosError:
-      return todoItemsLoaded(lastState, action);
     case TodoActionTypes.LoadTodosSuccess:
+      return todoItemsLoaded(lastState, action);
+    case TodoActionTypes.LoadTodosError:
       return todoItemsLoadFailed(lastState, action);
     case TodoActionTypes.CreateTodoSuccess:
       return todoItemCreatedReducer(lastState, action);
-    case TodoActionTypes.LoadTodosSuccess:
-      return todoItemsLoadFailed(lastState, action);
     case TodoActionTypes.SetTodoItemForEdit:
       return selectTodoItemForEditReducer(lastState, action);
     case TodoActionTypes.DeleteTodoSuccess:
