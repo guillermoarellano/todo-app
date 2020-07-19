@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Action, Store } from '@ngrx/store';
+import { Action, Store, createAction, props } from '@ngrx/store';
 
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
 export enum TodoActionTypes {
-  LoadTodos = '[TodoList] load todos',
-  LoadTodosError = '[TodoList] load todos error',
-  LoadTodosSuccess = '[TodoList] load todos success',
   CreateTodo = '[TodoList] create Todo item',
   CreateTodoError = '[TodoList] create Todo item error',
   CreateTodoSuccess = '[TodoList] create Todo item success',
@@ -23,21 +20,19 @@ export enum TodoActionTypes {
 
 // Action Creators
 
-export class LoadTodos implements Action {
-  public readonly type = TodoActionTypes.LoadTodos;
-}
+export const LoadTodos = createAction(
+  '[TodoList] load todos'
+);
 
-export class LoadTodosSuccess implements Action {
-  public readonly type = TodoActionTypes.LoadTodosSuccess;
+export const LoadTodosSuccess = createAction(
+  '[TodoList] load todos success',
+  props<{ todos: TODOItem[] }>()
+);
 
-  constructor(public payload: TODOItem[]) {}
-}
-
-export class LoadTodosError implements Action {
-  public readonly type = TodoActionTypes.LoadTodosError;
-
-  constructor(public payload: Error) {}
-}
+export const LoadTodosError = createAction(
+  '[TodoList] load todos error',
+  props<{ error: Error }>()
+);
 
 export class CreateTodo implements Action {
   public readonly type = TodoActionTypes.CreateTodo;
@@ -107,9 +102,6 @@ export class TodoItemCompleted implements Action {
 
 // Union the valid types
 export type TodoActions =
-  | LoadTodos
-  | LoadTodosError
-  | LoadTodosSuccess
   | CreateTodo
   | CreateTodoError
   | CreateTodoSuccess
@@ -127,7 +119,7 @@ export class TodoListActions {
   constructor(private store: Store<TodoListState>) {}
 
   public loadTodoList(): void {
-    this.store.dispatch(new LoadTodos());
+    this.store.dispatch(LoadTodos());
   }
 
   public addTodo(todo: TODOItem): any {
