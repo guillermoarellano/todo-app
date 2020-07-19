@@ -5,9 +5,6 @@ import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
 export enum TodoActionTypes {
-  DeleteTodo = '[TodoList] delete Todo item',
-  DeleteTodoError = '[TodoList] delete Todo item error',
-  DeleteTodoSuccess = '[TodoList] delete Todo item success',
   UpdateTodo = '[TodoList] update Todo item',
   UpdateTodoError = '[TodoList] update Todo item error',
   UpdateTodoSuccess = '[TodoList] update Todo item success',
@@ -45,23 +42,20 @@ export const CreateTodoError = createAction(
   props<{ error: Error }>()
 );
 
-export class DeleteTodo implements Action {
-  public readonly type = TodoActionTypes.DeleteTodo;
+export const DeleteTodo = createAction(
+  '[TodoList] delete Todo item',
+  props<{ todoId: number }>()
+);
 
-  constructor(public payload: string) {}
-}
+export const DeleteTodoSuccess = createAction(
+  '[TodoList] delete Todo item success',
+  props<{ todoId: number }>()
+);
 
-export class DeleteTodoSuccess implements Action {
-  public readonly type = TodoActionTypes.DeleteTodoSuccess;
-
-  constructor(public payload: APIInterface) {}
-}
-
-export class DeleteTodoError implements Action {
-  public readonly type = TodoActionTypes.DeleteTodoError;
-
-  constructor(public payload: Error) {}
-}
+export const DeleteTodoError = createAction(
+  '[TodoList] delete Todo item error',
+  props<{ error: Error }>()
+);
 
 export class UpdateTodo implements Action {
   public readonly type = TodoActionTypes.UpdateTodo;
@@ -90,7 +84,7 @@ export class SetTodoItemForEdit implements Action {
 export class TodoItemCompleted implements Action {
   public readonly type = TodoActionTypes.TodoItemCompleted;
 
-  constructor(public payload: string) {}
+  constructor(public payload: number) {}
 }
 
 // Union the valid types
@@ -98,9 +92,6 @@ export type TodoActions =
   | UpdateTodo
   | UpdateTodoError
   | UpdateTodoSuccess
-  | DeleteTodo
-  | DeleteTodoError
-  | DeleteTodoSuccess
   | SetTodoItemForEdit
   | TodoItemCompleted;
 
@@ -124,11 +115,11 @@ export class TodoListActions {
     this.store.dispatch(new SetTodoItemForEdit(todo));
   }
 
-  public deleteTodo(id: string): void {
-    this.store.dispatch(new DeleteTodo(id));
+  public deleteTodo(todoId: number): void {
+    this.store.dispatch(DeleteTodo({ todoId }));
   }
 
   public todoItemCompleted(id: string): void {
-    this.store.dispatch(new TodoItemCompleted(id));
+    this.store.dispatch(new TodoItemCompleted(+id));
   }
 }

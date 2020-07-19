@@ -55,27 +55,14 @@ const todoItemUpdatedReducer = (
   };
 };
 
-const todoItemDeletedReducer = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, string>
-): TodoListState => {
-  const newState = lastState.todos.filter((todo) => todo.id !== action.payload);
+// const todoItemCompletedReducer = (
+//   lastState: TodoListState,
+//   action: GenericAction<TodoActionTypes, string>
+// ) => {
+//   lastState.todos.find((todo) => todo.id === action.payload).completed = true;
 
-  return {
-    ...lastState,
-    editTodoItemIdx: null,
-    todos: newState,
-  };
-};
-
-const todoItemCompletedReducer = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, string>
-) => {
-  lastState.todos.find((todo) => todo.id === action.payload).completed = true;
-
-  return { ...lastState };
-};
+//   return { ...lastState };
+// };
 
 // export function todoListReducers(
 //   lastState: TodoListState = new TodoListInitState(),
@@ -156,8 +143,25 @@ export const todoListReducers = createReducer<TodoListState>(
     (state, action): TodoListState => {
       return {
         ...state,
-        errors: action.error
+        errors: action.error,
       };
     }
   ),
+  on(
+    TodoActions.DeleteTodoSuccess,
+    (state, action): TodoListState => {
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.todoId),
+        editTodoItemIdx: null,
+        errors: '',
+      };
+    }
+  ),
+  on(TodoActions.DeleteTodoError, (state, action) => {
+    return {
+      ...state,
+      errors: action.error,
+    };
+  })
 );

@@ -37,6 +37,6 @@ export class TodoListService {
   }
 
   public deleteTodo(id: string) {
-    this.todoListActions.deleteTodo(id);
+    this.todoListActions.deleteTodo(+id);
   }
 }

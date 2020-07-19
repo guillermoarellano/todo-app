@@ -1,5 +1,5 @@
 export interface TODOItem {
-  id: string;
+  id: number;
   createdAt: string;
   modifiedAt: string;
   title: string;

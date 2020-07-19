@@ -11,7 +11,7 @@ import { TODOItem } from '../models/interfaces';
 export class TodoItemCardComponent {
   @Input() public todoItem: TODOItem;
   @Input() public readOnlyTODO: boolean;
-  @Output() public todoDelete = new EventEmitter<string>();
+  @Output() public todoDelete = new EventEmitter<number>();
   @Output() public todoEdit = new EventEmitter<TODOItem>();
 
   public deleteClick() {

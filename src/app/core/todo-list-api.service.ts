@@ -17,8 +17,8 @@ export class TodoListAPIService {
     return this.httpClient.post<any>(this.todoListUrl, todo);
   }
 
-  public deleteTodo(action: DeleteTodo) {
-    return this.httpClient.delete(`${this.todoListUrl}/${action.payload}`);
+  public deleteTodo(todoId: number) {
+    return this.httpClient.delete(`${this.todoListUrl}/${todoId}`);
   }
 
   public editTodo(todo: UpdateTodo) {

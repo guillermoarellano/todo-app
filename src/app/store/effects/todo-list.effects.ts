@@ -5,12 +5,8 @@ import { catchError, exhaustMap, map } from 'rxjs/operators';
 
 import {
   TodoActionTypes,
-  CreateTodoError,
   UpdateTodoError,
-  CreateTodo,
   UpdateTodo,
-  DeleteTodo,
-  DeleteTodoError,
 } from '../actions';
 import * as TodoActions from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
@@ -30,7 +26,10 @@ export class TodoListEffects {
   public createTodo$ = this.actions$.pipe(
     ofType(TodoActions.CreateTodo),
     exhaustMap((TodoRequest: APIInterface) =>
-      this.todoListAPIService.createTodo({ title: TodoRequest.title, text: TodoRequest.text})
+      this.todoListAPIService.createTodo({
+        title: TodoRequest.title,
+        text: TodoRequest.text,
+      })
     ),
     map(() => TodoActions.LoadTodos()),
     catchError((error: Error) => of(TodoActions.CreateTodoError({ error })))
@@ -48,13 +47,15 @@ export class TodoListEffects {
 
   @Effect()
   public deleteTodo$ = this.actions$.pipe(
-    ofType(TodoActionTypes.DeleteTodo),
-    exhaustMap((action: DeleteTodo) =>
-      this.todoListAPIService.deleteTodo(action)
-    ),
-    map(() => TodoActions.LoadTodos),
-    catchError((error: Error) => of(new DeleteTodoError(error)))
+    ofType(TodoActions.DeleteTodo),
+    exhaustMap((action) =>
+      this.todoListAPIService.deleteTodo(action.todoId).pipe(
+        map(() => TodoActions.DeleteTodoSuccess({ todoId: action.todoId })),
+        catchError((error: Error) => of(TodoActions.DeleteTodoError({ error })))
+      )
+    )
   );
+
   constructor(
     private actions$: Actions,
     private todoListAPIService: TodoListAPIService
