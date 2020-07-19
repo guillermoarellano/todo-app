@@ -13,8 +13,8 @@ export class TodoListAPIService {
     return this.httpClient.get<TODOItem[]>(this.todoListUrl);
   }
 
-  public createTodo(todo: CreateTodo) {
-    return this.httpClient.post<any>(this.todoListUrl, todo.payload);
+  public createTodo(todo: APIInterface) {
+    return this.httpClient.post<any>(this.todoListUrl, todo);
   }
 
   public deleteTodo(action: DeleteTodo) {

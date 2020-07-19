@@ -14,6 +14,7 @@ import {
 } from '../actions';
 import * as TodoActions from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
+import { APIInterface } from '@app/shared/models/interfaces';
 
 @Injectable()
 export class TodoListEffects {
@@ -22,19 +23,17 @@ export class TodoListEffects {
     ofType(TodoActions.LoadTodos),
     exhaustMap(() => this.todoListAPIService.getTodos()),
     map((todos) => TodoActions.LoadTodosSuccess({ todos })),
-    catchError((error: Error) =>
-      of(TodoActions.LoadTodosError({ error }))
-    )
+    catchError((error: Error) => of(TodoActions.LoadTodosError({ error })))
   );
 
   @Effect()
   public createTodo$ = this.actions$.pipe(
-    ofType(TodoActionTypes.CreateTodo),
-    exhaustMap((action: CreateTodo) =>
-      this.todoListAPIService.createTodo(action)
+    ofType(TodoActions.CreateTodo),
+    exhaustMap((TodoRequest: APIInterface) =>
+      this.todoListAPIService.createTodo({ title: TodoRequest.title, text: TodoRequest.text})
     ),
-    map(() => TodoActions.LoadTodos),
-    catchError((error: Error) => of(new CreateTodoError(error)))
+    map(() => TodoActions.LoadTodos()),
+    catchError((error: Error) => of(TodoActions.CreateTodoError({ error })))
   );
 
   @Effect()

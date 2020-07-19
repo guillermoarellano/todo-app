@@ -6,7 +6,7 @@ import { createReducer, on } from '@ngrx/store';
 
 export interface TodoListState {
   todos: TODOItem[];
-  errors?: Error;
+  errors?: Error | '';
   isLoading: boolean;
   editTodoItemIdx?: number;
 }
@@ -23,64 +23,20 @@ export class TodoListInitState implements TodoListState {
 
 const initialTodoState: TodoListState = {
   todos: [],
-  isLoading: false
-};
-
-const loadTodoItems = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, void>
-): TodoListState => {
-  return {
-    ...lastState,
-    isLoading: true
-  };
-};
-
-const todoItemsLoaded = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, TODOItem[]>
-): TodoListState => {
-  return {
-    ...lastState,
-    todos: action.payload,
-    isLoading: false,
-    editTodoItemIdx: null
-  };
-};
-
-const todoItemsLoadFailed = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, Error>
-): TodoListState => {
-  return {
-    ...lastState,
-    errors: action.payload,
-    isLoading: false
-  };
-};
-
-const todoItemCreatedReducer = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, TODOItem>
-): TodoListState => {
-  const prevTodos = lastState.todos;
-
-  prevTodos.push(action.payload);
-  const newTodos = prevTodos;
-  return {
-    ...lastState,
-    todos: newTodos
-  };
+  isLoading: false,
+  errors: '',
 };
 
 const selectTodoItemForEditReducer = (
   lastState: TodoListState,
   action: GenericAction<TodoActionTypes, TODOItem>
 ): TodoListState => {
-  const indexToUpdate = lastState.todos.findIndex((todo) => todo.id === action.payload.id);
+  const indexToUpdate = lastState.todos.findIndex(
+    (todo) => todo.id === action.payload.id
+  );
   return {
     ...lastState,
-    editTodoItemIdx: indexToUpdate
+    editTodoItemIdx: indexToUpdate,
   };
 };
 
@@ -95,7 +51,7 @@ const todoItemUpdatedReducer = (
   return {
     ...lastState,
     editTodoItemIdx: null,
-    todos: newTodolist
+    todos: newTodolist,
   };
 };
 
@@ -108,7 +64,7 @@ const todoItemDeletedReducer = (
   return {
     ...lastState,
     editTodoItemIdx: null,
-    todos: newState
+    todos: newState,
   };
 };
 
@@ -150,27 +106,58 @@ const todoItemCompletedReducer = (
 
 export const todoListReducers = createReducer<TodoListState>(
   initialTodoState,
-  on(TodoActions.LoadTodos, (state): TodoListState => {
-    return {
-      ...state,
-      isLoading: true
-    };
-  }),
-  on(TodoActions.LoadTodosSuccess, (state, action): TodoListState => {
-    return {
-      ...state,
-      todos: action.todos,
-      isLoading: false,
-      editTodoItemIdx: null
-    };
-  }),
-  on(TodoActions.LoadTodosError, (state, action): TodoListState => {
-    return {
-      ...state,
-      todos: [],
-      errors: action.error,
-      isLoading: false,
-      editTodoItemIdx: null
-    };
-  })
+  on(
+    TodoActions.LoadTodos,
+    (state): TodoListState => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+  ),
+  on(
+    TodoActions.LoadTodosSuccess,
+    (state, action): TodoListState => {
+      return {
+        ...state,
+        todos: action.todos,
+        isLoading: false,
+        editTodoItemIdx: null,
+        errors: '',
+      };
+    }
+  ),
+  on(
+    TodoActions.LoadTodosError,
+    (state, action): TodoListState => {
+      return {
+        ...state,
+        todos: [],
+        errors: action.error,
+        isLoading: false,
+        editTodoItemIdx: null,
+      };
+    }
+  ),
+  // Todo: Need to update the API endpoint
+  // on(
+  //   TodoActions.CreateTodoSuccess,
+  //   (state, action): TodoListState => {
+  //     const newTodos = [...state.todos, ...action.payload];
+  //     return {
+  //       ...state,
+  //       todos: newTodos,
+  //       errors: ''
+  //     };
+  //   }
+  // ),
+  on(
+    TodoActions.CreateTodoError,
+    (state, action): TodoListState => {
+      return {
+        ...state,
+        errors: action.error
+      };
+    }
+  ),
 );

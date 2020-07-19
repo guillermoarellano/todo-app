@@ -5,9 +5,6 @@ import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
 export enum TodoActionTypes {
-  CreateTodo = '[TodoList] create Todo item',
-  CreateTodoError = '[TodoList] create Todo item error',
-  CreateTodoSuccess = '[TodoList] create Todo item success',
   DeleteTodo = '[TodoList] delete Todo item',
   DeleteTodoError = '[TodoList] delete Todo item error',
   DeleteTodoSuccess = '[TodoList] delete Todo item success',
@@ -20,9 +17,7 @@ export enum TodoActionTypes {
 
 // Action Creators
 
-export const LoadTodos = createAction(
-  '[TodoList] load todos'
-);
+export const LoadTodos = createAction('[TodoList] load todos');
 
 export const LoadTodosSuccess = createAction(
   '[TodoList] load todos success',
@@ -34,23 +29,21 @@ export const LoadTodosError = createAction(
   props<{ error: Error }>()
 );
 
-export class CreateTodo implements Action {
-  public readonly type = TodoActionTypes.CreateTodo;
+export const CreateTodo = createAction(
+  '[TodoList] create Todo item',
+  props<APIInterface>()
+);
 
-  constructor(public payload: APIInterface) {}
-}
+// Todo: Modify the API service to return newly created Object to pass to reducer
+export const CreateTodoSuccess = createAction(
+  '[TodoList] create Todo item success',
+  props<{ todoResponse: string }>()
+);
 
-export class CreateTodoSuccess implements Action {
-  public readonly type = TodoActionTypes.CreateTodoSuccess;
-
-  constructor(public payload: APIInterface) {}
-}
-
-export class CreateTodoError implements Action {
-  public readonly type = TodoActionTypes.CreateTodoError;
-
-  constructor(public payload: Error) {}
-}
+export const CreateTodoError = createAction(
+  '[TodoList] create Todo item error',
+  props<{ error: Error }>()
+);
 
 export class DeleteTodo implements Action {
   public readonly type = TodoActionTypes.DeleteTodo;
@@ -102,9 +95,6 @@ export class TodoItemCompleted implements Action {
 
 // Union the valid types
 export type TodoActions =
-  | CreateTodo
-  | CreateTodoError
-  | CreateTodoSuccess
   | UpdateTodo
   | UpdateTodoError
   | UpdateTodoSuccess
@@ -122,23 +112,23 @@ export class TodoListActions {
     this.store.dispatch(LoadTodos());
   }
 
-  public addTodo(todo: TODOItem): any {
-    this.store.dispatch(new CreateTodo({ title: todo.title, text: todo.text }));
+  public addTodo(todo: TODOItem): void {
+    this.store.dispatch(CreateTodo({ title: todo.title, text: todo.text }));
   }
 
-  public updateTodoItem(todo: TODOItem): any {
+  public updateTodoItem(todo: TODOItem): void {
     this.store.dispatch(new UpdateTodo(todo));
   }
 
-  public setTodoItemForEdit(todo: TODOItem): any {
+  public setTodoItemForEdit(todo: TODOItem): void {
     this.store.dispatch(new SetTodoItemForEdit(todo));
   }
 
-  public deleteTodo(id: string) {
+  public deleteTodo(id: string): void {
     this.store.dispatch(new DeleteTodo(id));
   }
 
-  public todoItemCompleted(id: string) {
+  public todoItemCompleted(id: string): void {
     this.store.dispatch(new TodoItemCompleted(id));
   }
 }
