@@ -4,10 +4,6 @@ import { Action, Store, createAction, props } from '@ngrx/store';
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
-export enum TodoActionTypes {
-  TodoItemCompleted = '[TodoList] TodoItemCompleted',
-}
-
 // Action Creators
 
 export const LoadTodos = createAction('[TodoList] load todos');
@@ -73,14 +69,10 @@ export const SetTodoItemForEdit = createAction(
   props<{ todo: TODOItem }>()
 );
 
-export class TodoItemCompleted implements Action {
-  public readonly type = TodoActionTypes.TodoItemCompleted;
-
-  constructor(public payload: number) {}
-}
-
-// Union the valid types
-export type TodoActions = TodoItemCompleted;
+export const TodoItemCompleted = createAction(
+  '[TodoList] TodoItemCompleted',
+  props<{ todoId: number }>()
+);
 
 @Injectable({ providedIn: 'root' })
 export class TodoListActions {
@@ -107,6 +99,6 @@ export class TodoListActions {
   }
 
   public todoItemCompleted(id: string): void {
-    this.store.dispatch(new TodoItemCompleted(+id));
+    this.store.dispatch(TodoItemCompleted({ todoId: +id }));
   }
 }

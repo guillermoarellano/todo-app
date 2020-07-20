@@ -52,6 +52,8 @@ export class TodoListEffects {
     )
   );
 
+  // Todo: Add Complete Todo effect
+
   constructor(
     private actions$: Actions,
     private todoListAPIService: TodoListAPIService
