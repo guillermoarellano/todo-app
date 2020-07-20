@@ -3,11 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 
-import {
-  TodoActionTypes,
-  UpdateTodoError,
-  UpdateTodo,
-} from '../actions';
+import { TodoActionTypes, UpdateTodoError, UpdateTodo } from '../actions';
 import * as TodoActions from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
 import { APIInterface } from '@app/shared/models/interfaces';
@@ -37,12 +33,13 @@ export class TodoListEffects {
 
   @Effect()
   public updateTodo$ = this.actions$.pipe(
-    ofType(TodoActionTypes.UpdateTodo),
-    exhaustMap((action: UpdateTodo) =>
-      this.todoListAPIService.editTodo(action)
-    ),
-    map(() => TodoActions.LoadTodos),
-    catchError((error: Error) => of(new UpdateTodoError(error)))
+    ofType(TodoActions.UpdateTodo),
+    exhaustMap((action) =>
+      this.todoListAPIService.editTodo(action.todo).pipe(
+        map(() => TodoActions.UpdateTodoSuccess({ todo: action.todo })),
+        catchError((error: Error) => of(TodoActions.UpdateTodoError({ error })))
+      )
+    )
   );
 
   @Effect()

@@ -40,21 +40,6 @@ const selectTodoItemForEditReducer = (
   };
 };
 
-const todoItemUpdatedReducer = (
-  lastState: TodoListState,
-  action: GenericAction<TodoActionTypes, TODOItem>
-): TodoListState => {
-  const newTodolist = lastState.todos.map((todo) =>
-    todo.id === action.payload.id ? action.payload : todo
-  );
-
-  return {
-    ...lastState,
-    editTodoItemIdx: null,
-    todos: newTodolist,
-  };
-};
-
 // const todoItemCompletedReducer = (
 //   lastState: TodoListState,
 //   action: GenericAction<TodoActionTypes, string>
@@ -159,6 +144,23 @@ export const todoListReducers = createReducer<TodoListState>(
     }
   ),
   on(TodoActions.DeleteTodoError, (state, action) => {
+    return {
+      ...state,
+      errors: action.error,
+    };
+  }),
+  on(TodoActions.UpdateTodoSuccess, (state, action) => {
+    const newTodolist = state.todos.map((todo) =>
+      todo.id === action.todo.id ? action.todo : todo
+    );
+    return {
+      ...state,
+      todos: newTodolist,
+      editTodoItemIdx: null,
+      errors: '',
+    };
+  }),
+  on(TodoActions.UpdateTodoError, (state, action) => {
     return {
       ...state,
       errors: action.error,

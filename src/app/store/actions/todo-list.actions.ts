@@ -5,9 +5,6 @@ import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
 export enum TodoActionTypes {
-  UpdateTodo = '[TodoList] update Todo item',
-  UpdateTodoError = '[TodoList] update Todo item error',
-  UpdateTodoSuccess = '[TodoList] update Todo item success',
   SetTodoItemForEdit = '[TodoList] SetTodoItemForEdit',
   TodoItemCompleted = '[TodoList] TodoItemCompleted',
 }
@@ -57,23 +54,38 @@ export const DeleteTodoError = createAction(
   props<{ error: Error }>()
 );
 
-export class UpdateTodo implements Action {
-  public readonly type = TodoActionTypes.UpdateTodo;
+// export class UpdateTodo implements Action {
+//   public readonly type = TodoActionTypes.UpdateTodo;
 
-  constructor(public payload: TODOItem) {}
-}
+//   constructor(public payload: TODOItem) {}
+// }
 
-export class UpdateTodoSuccess implements Action {
-  public readonly type = TodoActionTypes.UpdateTodoSuccess;
+export const UpdateTodo = createAction(
+  '[TodoList] update Todo item',
+  props<{ todo: TODOItem }>()
+);
 
-  constructor(public payload: string) {}
-}
+// export class UpdateTodoSuccess implements Action {
+//   public readonly type = TodoActionTypes.UpdateTodoSuccess;
 
-export class UpdateTodoError implements Action {
-  public readonly type = TodoActionTypes.UpdateTodoError;
+//   constructor(public payload: string) {}
+// }
 
-  constructor(public payload: Error) {}
-}
+export const UpdateTodoSuccess = createAction(
+  '[TodoList] update Todo item success',
+  props<{ todo: TODOItem }>()
+);
+
+// export class UpdateTodoError implements Action {
+//   public readonly type = TodoActionTypes.UpdateTodoError;
+
+//   constructor(public payload: Error) {}
+// }
+
+export const UpdateTodoError = createAction(
+  '[TodoList] update Todo item error',
+  props<{ error: Error }>()
+);
 
 export class SetTodoItemForEdit implements Action {
   public readonly type = TodoActionTypes.SetTodoItemForEdit;
@@ -88,12 +100,7 @@ export class TodoItemCompleted implements Action {
 }
 
 // Union the valid types
-export type TodoActions =
-  | UpdateTodo
-  | UpdateTodoError
-  | UpdateTodoSuccess
-  | SetTodoItemForEdit
-  | TodoItemCompleted;
+export type TodoActions = SetTodoItemForEdit | TodoItemCompleted;
 
 @Injectable({ providedIn: 'root' })
 export class TodoListActions {
@@ -108,7 +115,7 @@ export class TodoListActions {
   }
 
   public updateTodoItem(todo: TODOItem): void {
-    this.store.dispatch(new UpdateTodo(todo));
+    this.store.dispatch(UpdateTodo({ todo }));
   }
 
   public setTodoItemForEdit(todo: TODOItem): void {
