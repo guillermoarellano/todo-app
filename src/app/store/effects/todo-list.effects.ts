@@ -3,7 +3,6 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 
-import { TodoActionTypes, UpdateTodoError, UpdateTodo } from '../actions';
 import * as TodoActions from '../actions';
 import { TodoListAPIService } from '@app/core/todo-list-api.service';
 import { APIInterface } from '@app/shared/models/interfaces';

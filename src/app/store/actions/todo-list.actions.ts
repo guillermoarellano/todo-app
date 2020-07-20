@@ -5,7 +5,6 @@ import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { TodoListState } from '../reducers/todo-list.reducer';
 
 export enum TodoActionTypes {
-  SetTodoItemForEdit = '[TodoList] SetTodoItemForEdit',
   TodoItemCompleted = '[TodoList] TodoItemCompleted',
 }
 
@@ -54,44 +53,25 @@ export const DeleteTodoError = createAction(
   props<{ error: Error }>()
 );
 
-// export class UpdateTodo implements Action {
-//   public readonly type = TodoActionTypes.UpdateTodo;
-
-//   constructor(public payload: TODOItem) {}
-// }
-
 export const UpdateTodo = createAction(
   '[TodoList] update Todo item',
   props<{ todo: TODOItem }>()
 );
-
-// export class UpdateTodoSuccess implements Action {
-//   public readonly type = TodoActionTypes.UpdateTodoSuccess;
-
-//   constructor(public payload: string) {}
-// }
 
 export const UpdateTodoSuccess = createAction(
   '[TodoList] update Todo item success',
   props<{ todo: TODOItem }>()
 );
 
-// export class UpdateTodoError implements Action {
-//   public readonly type = TodoActionTypes.UpdateTodoError;
-
-//   constructor(public payload: Error) {}
-// }
-
 export const UpdateTodoError = createAction(
   '[TodoList] update Todo item error',
   props<{ error: Error }>()
 );
 
-export class SetTodoItemForEdit implements Action {
-  public readonly type = TodoActionTypes.SetTodoItemForEdit;
-
-  constructor(public payload: TODOItem) {}
-}
+export const SetTodoItemForEdit = createAction(
+  '[TodoList] SetTodoItemForEdit',
+  props<{ todo: TODOItem }>()
+);
 
 export class TodoItemCompleted implements Action {
   public readonly type = TodoActionTypes.TodoItemCompleted;
@@ -100,7 +80,7 @@ export class TodoItemCompleted implements Action {
 }
 
 // Union the valid types
-export type TodoActions = SetTodoItemForEdit | TodoItemCompleted;
+export type TodoActions = TodoItemCompleted;
 
 @Injectable({ providedIn: 'root' })
 export class TodoListActions {
@@ -119,7 +99,7 @@ export class TodoListActions {
   }
 
   public setTodoItemForEdit(todo: TODOItem): void {
-    this.store.dispatch(new SetTodoItemForEdit(todo));
+    this.store.dispatch(SetTodoItemForEdit({ todo }));
   }
 
   public deleteTodo(todoId: number): void {

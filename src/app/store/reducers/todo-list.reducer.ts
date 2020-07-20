@@ -165,5 +165,14 @@ export const todoListReducers = createReducer<TodoListState>(
       ...state,
       errors: action.error,
     };
+  }),
+  on(TodoActions.SetTodoItemForEdit, (state, action) => {
+    const indexToUpdate = state.todos.findIndex(
+      (todo) => todo.id === action.todo.id
+    );
+    return {
+      ...state,
+      editTodoItemIdx: indexToUpdate,
+    };
   })
 );
