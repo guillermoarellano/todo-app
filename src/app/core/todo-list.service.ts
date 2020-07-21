@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { TODOItem } from '@app/shared/models/interfaces';
-import { TodoListActions } from '@app/store/actions';
-import { TodoListSelector } from '@app/store/services';
+import { TodoListSelector, TodoListDispatcher } from '@app/store/services';
 
 @Injectable()
 export class TodoListService {
@@ -13,19 +12,19 @@ export class TodoListService {
 
   constructor(
     private todoListSelector: TodoListSelector,
-    private todoListActions: TodoListActions
+    private todoListDispatcher: TodoListDispatcher
   ) {}
 
   public loadTodoList(): any {
-    this.todoListActions.loadTodoList();
+    this.todoListDispatcher.loadTodoList();
   }
 
   public setTodoItemForEdit(todoItem: TODOItem): any {
-    this.todoListActions.setTodoItemForEdit(todoItem);
+    this.todoListDispatcher.setTodoItemForEdit(todoItem);
   }
 
   public editTodo(todoItem: TODOItem): any {
-    this.todoListActions.updateTodoItem(todoItem);
+    this.todoListDispatcher.updateTodoItem(todoItem);
   }
 
   public getTodoForEdit$() {
@@ -33,10 +32,10 @@ export class TodoListService {
   }
 
   public addTodo(todo: TODOItem) {
-    this.todoListActions.addTodo(todo);
+    this.todoListDispatcher.addTodo(todo);
   }
 
   public deleteTodo(id: string) {
-    this.todoListActions.deleteTodo(+id);
+    this.todoListDispatcher.deleteTodo(+id);
   }
 }

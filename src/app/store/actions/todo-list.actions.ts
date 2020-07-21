@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Action, Store, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
-import { TodoListState } from '../reducers/todo-list.reducer';
 
 // Action Creators
 
@@ -73,32 +71,3 @@ export const TodoItemCompleted = createAction(
   '[TodoList] TodoItemCompleted',
   props<{ todoId: number }>()
 );
-
-@Injectable({ providedIn: 'root' })
-export class TodoListActions {
-  constructor(private store: Store<TodoListState>) {}
-
-  public loadTodoList(): void {
-    this.store.dispatch(LoadTodos());
-  }
-
-  public addTodo(todo: TODOItem): void {
-    this.store.dispatch(CreateTodo({ title: todo.title, text: todo.text }));
-  }
-
-  public updateTodoItem(todo: TODOItem): void {
-    this.store.dispatch(UpdateTodo({ todo }));
-  }
-
-  public setTodoItemForEdit(todo: TODOItem): void {
-    this.store.dispatch(SetTodoItemForEdit({ todo }));
-  }
-
-  public deleteTodo(todoId: number): void {
-    this.store.dispatch(DeleteTodo({ todoId }));
-  }
-
-  public todoItemCompleted(id: string): void {
-    this.store.dispatch(TodoItemCompleted({ todoId: +id }));
-  }
-}

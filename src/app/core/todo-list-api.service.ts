@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TODOItem, APIInterface } from '@app/shared/models/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { CreateTodo, UpdateTodo, DeleteTodo } from '@app/store';
 
 @Injectable()
 export class TodoListAPIService {
