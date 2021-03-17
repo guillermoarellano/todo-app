@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as TodoActions from '../actions';
 import { TodoListState } from '../reducers';
 import { TODOItem } from '@app/shared/models/interfaces';
+import { TodoActions } from '../actions';
 
 @Injectable()
 export class TodoListDispatcher {
