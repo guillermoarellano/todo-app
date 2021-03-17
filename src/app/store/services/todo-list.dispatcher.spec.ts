@@ -3,8 +3,8 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { TodoListDispatcher } from './todo-list.dispatcher';
 import { TodoListState } from '../reducers';
-import * as TodoActions from '../actions';
 import { TODOItem } from '@app/shared/models/interfaces';
+import { TodoActions } from '../actions';
 
 describe('TodoListDispatcher', () => {
   let service: TodoListDispatcher;

@@ -1,0 +1,9 @@
+# compile output
+dist
+out
+
+# misc
+coverage
+
+# dependencies
+node_modules

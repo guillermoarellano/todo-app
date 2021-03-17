@@ -1,22 +1,12 @@
 import { TODOItem } from '@app/shared/models/interfaces';
-import * as TodoActions from '../actions';
 import { createReducer, on } from '@ngrx/store';
+import { TodoActions } from '../actions';
 
 export interface TodoListState {
   todos: TODOItem[];
   errors?: Error | '';
   isLoading: boolean;
   editTodoItemIdx?: number;
-}
-
-export class TodoListInitState implements TodoListState {
-  public todos: TODOItem[];
-  public errors?: Error;
-  public isLoading: boolean;
-  constructor() {
-    this.todos = [];
-    this.isLoading = false;
-  }
 }
 
 const initialTodoState: TodoListState = {
