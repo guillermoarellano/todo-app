@@ -1,16 +1,16 @@
 # TODO app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0. It has since been upgraded to use Angular CLI version 10.x.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0. It has since been upgraded to use Angular CLI version 11.2.4.
 
 ## Development server
 
-Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a frontend and backend dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Backend server
 
-Launch the backend server via `node server`. It will be running on `http://localhost:8080/`.
+The backend server can be run independently via `node server` terminal command. It will run on `http://localhost:8080/`.
 
-It provides the following REST API:
+Provides the following REST API:
 
 * `GET /todos`
   * retrieves the list of TODO items
