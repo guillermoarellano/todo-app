@@ -12,7 +12,7 @@ export interface TodoListState {
 const initialTodoState: TodoListState = {
   todos: [],
   isLoading: false,
-  errors: '',
+  errors: ''
 };
 
 export const todoListReducers = createReducer<TodoListState>(
@@ -22,7 +22,7 @@ export const todoListReducers = createReducer<TodoListState>(
     (state): TodoListState => {
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     }
   ),
@@ -34,7 +34,7 @@ export const todoListReducers = createReducer<TodoListState>(
         todos: action.todos,
         isLoading: false,
         editTodoItemIdx: null,
-        errors: '',
+        errors: ''
       };
     }
   ),
@@ -46,7 +46,7 @@ export const todoListReducers = createReducer<TodoListState>(
         todos: [],
         errors: action.error,
         isLoading: false,
-        editTodoItemIdx: null,
+        editTodoItemIdx: null
       };
     }
   ),
@@ -67,7 +67,7 @@ export const todoListReducers = createReducer<TodoListState>(
     (state, action): TodoListState => {
       return {
         ...state,
-        errors: action.error,
+        errors: action.error
       };
     }
   ),
@@ -78,14 +78,14 @@ export const todoListReducers = createReducer<TodoListState>(
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.todoId),
         editTodoItemIdx: null,
-        errors: '',
+        errors: ''
       };
     }
   ),
   on(TodoActions.DeleteTodoError, (state, action) => {
     return {
       ...state,
-      errors: action.error,
+      errors: action.error
     };
   }),
   on(TodoActions.UpdateTodoSuccess, (state, action) => {
@@ -96,13 +96,14 @@ export const todoListReducers = createReducer<TodoListState>(
       ...state,
       todos: newTodolist,
       editTodoItemIdx: null,
-      errors: '',
+      errors: ''
     };
   }),
   on(TodoActions.UpdateTodoError, (state, action) => {
     return {
       ...state,
       errors: action.error,
+      isLoading: false
     };
   }),
   on(TodoActions.SetTodoItemForEdit, (state, action) => {
@@ -111,7 +112,7 @@ export const todoListReducers = createReducer<TodoListState>(
     );
     return {
       ...state,
-      editTodoItemIdx: indexToUpdate,
+      editTodoItemIdx: indexToUpdate
     };
   }),
   on(TodoActions.TodoItemCompleted, (state, action) => {
