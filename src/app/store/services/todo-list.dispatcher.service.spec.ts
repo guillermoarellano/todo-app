@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { TodoListDispatcher } from './todo-list.dispatcher';
+import { TodoListDispatcher } from './todo-list.dispatcher.service';
 import { TodoListState } from '../reducers';
 import { TODOItem } from '@app/shared/models/interfaces';
 import { TodoActions } from '../actions';

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { TodoListSelector } from './todo-list.selector';
+import { TodoListSelector } from './todo-list.selector.service';
 import { TodoListState } from '../reducers';
 import { TODOItem } from '@app/shared/models/interfaces';
 import {
@@ -9,9 +9,9 @@ import {
   completedTodosSelectorFn,
   todoItemForEditSelectorFn,
   isLoadingFn
-} from './todo-list.selector';
+} from '../todo-list.selector';
 
-describe('TodoListSelector', () => {
+describe('Todo Selector Service', () => {
   let service: TodoListSelector;
   let mockStore: MockStore<TodoListState>;
 
